@@ -3,33 +3,52 @@ extends layout
 block content
   .container
     .row
+      .col-xs-6
+        table.table
+          thead
+            tr
+              th BMI
+              th Old Weight
+              th Weight Gained
+              th Current Weight
+            tr
+              td {{bmi}}
+              td {{user.weight}}
+              td {{weightGained}}
+              td {{currentWeight}}
+
+    .row
       .col-xs-12
         h1 Food Diary
         button.btn.btn-danger(ng-model='userForm' ng-click='userForm = !userForm') Show User Form
-    form.user-form(ng-hide='userForm' ng-submit='saveFood(user, food)')
+    form.user-form(ng-hide='userForm' ng-submit='saveUser(user)')
       .row
         .col-xs-12
           h2 User
         .col-xs-6
           h4 Name
-          input(ng-model='user.name')
+          input(ng-model='user.name' required)
           h4 Weight
-          input(ng-model='user.weight', type='number')
+          input(ng-model='user.weight', type='number' required)
         .col-xs-6
           h4 Age
-          input(ng-model='user.age', type='number')
+          input(ng-model='user.age', type='number' required)
           h4 Height
-          input(ng-model='user.height', type='number')
+          input(ng-model='user.height', type='number' required)
         .col-xs-6
           h4 Gender
-          select(ng-model='user.gender')
+          select(ng-model='user.gender' required)
             option(value='male') Male
             option(value='female') Female
         .col-xs-6
           h4 Unit
-          select(ng-model='user.unit')
-            option(value='inches') Inches
+          select(ng-model='user.unit' required)
+            option(value='inches' default) Inches
             option(value='cm' disabled) Centimeters
+      .row
+        .col-xs-12
+          button.btn.btn-danger(type='submit') Save User
+    form.food-form(ng-submit='saveFood(food)')
       .row
         .col-xs-12
           h2 Food
@@ -52,6 +71,22 @@ block content
           h4 Servings
           input(ng-model='food.servings', type='number')
           button.btn.btn-danger(type='submit') Save Food
-        .row
-          table.table
-
+      .row
+        table.table
+          thead
+            tr
+              th Delete
+              th Edit
+              th Description
+              th Meal
+              th Calories
+              th Servings
+              th Date
+            tr(ng-repeat='food in foods track by $index')
+              td(ng-click='deleteEntry($index)') Delete
+              td(ng-click='editEntry($index)') Edit
+              td {{food.desc}}
+              td {{food.meal}}
+              td {{food.calories}}
+              td {{food.servings}}
+              td {{food.date}}
