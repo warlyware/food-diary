@@ -12,12 +12,23 @@ app.controller("MainCtrl", function($scope, $http, User, Food) {
     var newFood = new Food(food);
     console.log(newUser);
     console.log(newFood);
-    $http.post("/food", {user: newUser}).success(function(data) {
-      $scope.quotes.push(data.quote);
-      $scope.newQuote = "";
+    $scope.user = newUser;
+    $scope.foods = newFood;
+    $http.post("/user", {user: newUser}).success(function(data) {
+      console.log(data);
+      // $scope.quotes.push(data.quote);
+      // $scope.newQuote = "";
     }).catch(function(err) {
       console.log(err);
     });
+
+    $http.post("/food", {user: newFood}).success(function(data) {
+      console.log(data);
+      // $scope.quotes.push(data.quote);
+      // $scope.newQuote = "";
+    }).catch(function(err) {
+      console.log(err);
+    });    
   }
 });
 
