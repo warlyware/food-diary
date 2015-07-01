@@ -1,0 +1,57 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col-xs-12
+        h1 Food Diary
+        button.btn.btn-danger(ng-model='userForm' ng-click='userForm = !userForm') Show User Form
+    form.user-form(ng-hide='userForm' ng-submit='saveFood(user, food)')
+      .row
+        .col-xs-12
+          h2 User
+        .col-xs-6
+          h4 Name
+          input(ng-model='user.name')
+          h4 Weight
+          input(ng-model='user.weight', type='number')
+        .col-xs-6
+          h4 Age
+          input(ng-model='user.age', type='number')
+          h4 Height
+          input(ng-model='user.height', type='number')
+        .col-xs-6
+          h4 Gender
+          select(ng-model='user.gender')
+            option(value='male') Male
+            option(value='female') Female
+        .col-xs-6
+          h4 Unit
+          select(ng-model='user.unit')
+            option(value='inches') Inches
+            option(value='cm' disabled) Centimeters
+      .row
+        .col-xs-12
+          h2 Food
+        .col-xs-6
+          h4 Description
+          input(ng-model='food.desc')
+      .row  
+        .col-xs-6
+          h4 Meal
+          select(ng-model='food.meal')
+            option(value='breakfast') Breakfast
+            option(value='lunch') Lunch
+            option(value='dinner') Dinner
+      .row
+        .col-xs-6
+          h4 Calories
+          input(ng-model='food.calories', type='number')
+      .row
+        .col-xs-6
+          h4 Servings
+          input(ng-model='food.servings', type='number')
+          button.btn.btn-danger(type='submit') Save Food
+        .row
+          table.table
+
